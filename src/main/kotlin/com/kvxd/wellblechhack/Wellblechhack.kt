@@ -1,11 +1,19 @@
 package com.kvxd.wellblechhack
+import org.slf4j.LoggerFactory
 
-import net.fabricmc.api.ClientModInitializer
+/**
+ * Main object for the Wellblechhack
+ */
+object Wellblechhack {
 
-class Wellblechhack : ClientModInitializer {
+    private val logger = LoggerFactory.getLogger("Wellblechhack")
 
-    override fun onInitializeClient() {
-
+    /**
+     * Initializes the Wellblechhack. Not using fabric's client entrypoint because it initializes too early.
+     * @see com.kvxd.wellblechhack.mixin.MinecraftClientMixin.init
+     */
+    fun initialize() {
+        logger.info("Initializing")
     }
 
 }
