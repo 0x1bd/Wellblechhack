@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "wellblechhack",
+  "version": "${version}",
+
+  "name": "Wellblechhack",
+  "description": "When life gives you lemons, fuck them and hack with Wellblechhack.",
+  "authors": ["kvxd"],
+  "contact": {},
+
+  "license": "GPL-3.0",
+  "icon": "assets/wellblechhack/icon.png",
+
+  "environment": "client",
+  "entrypoints": {
+    "client": ["com.kvxd.wellblechhack.Wellblechhack"]
+  },
+
+  "mixins": [
+    "wellblechhack.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-language-kotlin": ">=${kotlin_loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
