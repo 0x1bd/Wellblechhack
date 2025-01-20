@@ -5,6 +5,7 @@ plugins {
     kotlin("jvm") version "2.1.0"
     id("fabric-loom") version "1.9-SNAPSHOT"
     id("maven-publish")
+    kotlin("plugin.serialization") version "2.1.0"
 }
 
 version = project.property("mod_version") as String
@@ -33,6 +34,8 @@ repositories {
         name = "Jitpack"
         url = uri("https://jitpack.io")
     }
+
+    mavenCentral()
 }
 
 dependencies {
@@ -45,10 +48,13 @@ dependencies {
     modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
 
     // Libraries
-    library("com.github.meo209:KeventBus:${property("keventbus_version")}")
+    library("com.github.0x1bd:KeventBus:${property("keventbus_version")}")
 
     // Runtimes
     modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:${property("devauth_version")}")
+
+    // Tests
+    testImplementation(kotlin("test"))
 }
 
 fun DependencyHandler.library(dependencyNotation: String) {
