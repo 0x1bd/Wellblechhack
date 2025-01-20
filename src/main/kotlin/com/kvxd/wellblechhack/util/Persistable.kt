@@ -2,9 +2,9 @@ package com.kvxd.wellblechhack.util
 
 import net.minecraft.nbt.NbtCompound
 
-interface Persistable<T> {
+interface Persistable {
 
-    fun load(tag: NbtCompound): T?
+    fun load(tag: NbtCompound)
     fun save(tag: NbtCompound)
 
 }

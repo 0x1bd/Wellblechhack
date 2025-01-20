@@ -1,29 +1,37 @@
 package com.kvxd.wellblechhack.module
 
+import com.kvxd.wellblechhack.Wellblechhack
 import com.kvxd.wellblechhack.setting.Setting
+import com.kvxd.wellblechhack.settings.BooleanSetting
 import com.kvxd.wellblechhack.util.Persistable
 import net.minecraft.nbt.NbtCompound
 
-abstract class Module(val name: String, val description: String): Persistable<Module> {
+abstract class Module(val name: String, val description: String) : Persistable {
 
     private val settings = mutableSetOf<Setting<*>>()
 
-    override fun load(tag: NbtCompound): Module? {
-        if (tag.getString("name") == name)
-            return this
-        return null
-    }
+    val enabled by boolean("enabled", "Is the module enabled.")
 
-    override fun save(tag: NbtCompound) {
-        tag.apply {
-            putString("name", name)
+    protected val eventBus = Wellblechhack.EVENT_BUS.forward { enabled }
 
-            settings.forEach { setting: Setting<*> ->
-                val settingsTag = NbtCompound()
-                settingsTag.put("value", setting.toTag())
-                tag.put(setting.name, settingsTag)
-            }
+    override fun load(tag: NbtCompound) {
+        settings.forEach { setting ->
+            val settingTag = tag.get(setting.name) as NbtCompound
+            setting.load(settingTag)
         }
     }
 
+    override fun save(tag: NbtCompound) {
+        val moduleTag = NbtCompound()
+        settings.forEach { setting ->
+            val settingTag = NbtCompound()
+            setting.save(settingTag)
+            moduleTag.put(setting.name, settingTag)
+        }
+        tag.put(name, moduleTag)
+    }
+
+    private fun boolean(name: String, description: String, display: String = name, default: Boolean = false) =
+        BooleanSetting(name, display, default, default)
+            .also { settings.add(it) }
 }

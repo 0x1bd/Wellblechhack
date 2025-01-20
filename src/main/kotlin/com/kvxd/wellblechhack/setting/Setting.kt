@@ -1,7 +1,8 @@
 package com.kvxd.wellblechhack.setting
 
+import com.kvxd.wellblechhack.module.Module
 import com.kvxd.wellblechhack.util.Persistable
-import net.minecraft.nbt.NbtCompound
+import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 abstract class Setting<T>(
@@ -9,29 +10,17 @@ abstract class Setting<T>(
     var display: String,
     private val default: T,
     var value: T,
-): Persistable<T> {
+): Persistable, ReadWriteProperty<Module, T> {
 
     fun reset() {
         this.value = default
     }
 
-    abstract fun validate(value: T): Boolean
-
-    fun toTag(): NbtCompound {
-        val tag = NbtCompound()
-
-        tag.putString("name", name)
-        save(tag)
-
-        return tag
-    }
-
-    fun fromTag(tag: NbtCompound): T? {
-        val value = load(tag)
-
+    override fun getValue(thisRef: Module, property: KProperty<*>): T {
         return value
     }
 
-    open operator fun getValue(any: Any, kProperty: KProperty<*>): T = value
-
+    override fun setValue(thisRef: Module, property: KProperty<*>, value: T) {
+        this.value = value
+    }
 }

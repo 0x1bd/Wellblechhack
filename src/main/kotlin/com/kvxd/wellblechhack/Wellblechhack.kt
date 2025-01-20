@@ -1,6 +1,7 @@
 package com.kvxd.wellblechhack
 import com.kvxd.eventbus.EventBus
 import com.kvxd.wellblechhack.module.ModuleSystem
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents
 import net.fabricmc.loader.api.FabricLoader
 import org.slf4j.LoggerFactory
 import java.io.File
@@ -30,6 +31,10 @@ object Wellblechhack {
             ROOT_FILE.mkdir()
 
         ModuleSystem.initialize()
+
+        ClientLifecycleEvents.CLIENT_STOPPING.register {
+            ModuleSystem.save()
+        }
     }
 
 }
