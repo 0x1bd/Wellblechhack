@@ -35,6 +35,10 @@ repositories {
         url = uri("https://jitpack.io")
     }
 
+    maven {
+        url = uri("https://mcef-download.cinemamod.com/repositories/releases")
+    }
+
     mavenCentral()
 }
 
@@ -49,6 +53,9 @@ dependencies {
 
     // Libraries
     library("com.github.0x1bd:KeventBus:${property("keventbus_version")}")
+
+    modCompileOnly("com.cinemamod:mcef:${property("mcef_version")}")
+    modRuntimeOnly("com.cinemamod:mcef-fabric:${property("mcef_version")}")
 
     // Runtimes
     modRuntimeOnly("me.djtheredstoner:DevAuth-fabric:${property("devauth_version")}")

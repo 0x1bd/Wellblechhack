@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MinecraftClientMixin {
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void init(RunArgs args, CallbackInfo ci) {
+    private void onInit(RunArgs args, CallbackInfo ci) {
         Wellblechhack.INSTANCE.initialize();
     }
 

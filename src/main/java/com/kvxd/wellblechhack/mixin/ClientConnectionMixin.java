@@ -18,19 +18,19 @@ public class ClientConnectionMixin {
 
     @Inject(method = "channelRead0(Lio/netty/channel/ChannelHandlerContext;Lnet/minecraft/network/packet/Packet;)V", at = @At("HEAD"), cancellable = true)
     private void onReceive(ChannelHandlerContext channelHandlerContext, Packet<?> packet, CallbackInfo ci) {
-        PacketReceivedEvent p = new PacketReceivedEvent(packet, false);
+        PacketReceivedEvent p = new PacketReceivedEvent(packet);
         Wellblechhack.INSTANCE.getEVENT_BUS().post(p);
 
-        if (p.getCanceled())
+        if (p.getCancelled())
             ci.cancel();
     }
 
     @Inject(method = "sendInternal", at = @At("HEAD"), cancellable = true)
     private void onSendInternal(Packet<?> packet, @Nullable PacketCallbacks callbacks, boolean flush, CallbackInfo ci) {
-        PacketSendEvent p = new PacketSendEvent(packet, false);
+        PacketSendEvent p = new PacketSendEvent(packet);
         Wellblechhack.INSTANCE.getEVENT_BUS().post(p);
 
-        if (p.getCanceled())
+        if (p.getCancelled())
             ci.cancel();
     }
 

@@ -1,14 +1,16 @@
 package com.kvxd.wellblechhack.module
 
 import com.kvxd.wellblechhack.modules.AutoTotem
+import com.kvxd.wellblechhack.modules.ClickGuiModule
 import com.kvxd.wellblechhack.util.SystemWithFile
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtIo
 
 object ModuleSystem : SystemWithFile("module") {
 
-    private val modules = setOf<Module>(
-        AutoTotem
+    val modules = setOf<Module>(
+        AutoTotem,
+        ClickGuiModule
     )
 
     operator fun get(moduleClazz: Class<out Module>): Module? = modules.find { it::class == moduleClazz }
