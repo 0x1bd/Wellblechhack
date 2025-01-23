@@ -1,6 +1,5 @@
-package com.kvxd.wellblechhack.mcef
+package com.kvxd.wellblechhack.render
 
-import com.cinemamod.mcef.MCEF
 import com.cinemamod.mcef.MCEFBrowser
 import com.kvxd.wellblechhack.mc
 import com.mojang.blaze3d.systems.RenderSystem
@@ -11,18 +10,11 @@ import net.minecraft.client.gui.screen.Screen
 import net.minecraft.client.render.*
 import net.minecraft.text.Text
 
-class ExampleScreen(text: Text) : Screen(text) {
-
-    private var browser: MCEFBrowser? = null
+class MCEFScreen(private val browser: MCEFBrowser) : Screen(Text.literal("MCEF Screen")) {
 
     override fun init() {
         super.init()
-        if (browser == null) {
-            val url = "https://www.google.com"
-            val transparent = true
-            browser = MCEF.createBrowser(url, transparent)
-            resizeBrowser()
-        }
+        resizeBrowser()
     }
 
     private fun mouseX(x: Double): Int {
@@ -43,7 +35,7 @@ class ExampleScreen(text: Text) : Screen(text) {
 
     private fun resizeBrowser() {
         if (width > 100 && height > 100) {
-            browser!!.resize(scaleX(width), scaleY(height))
+            browser.resize(scaleX(width), scaleY(height))
         }
     }
 
@@ -53,7 +45,7 @@ class ExampleScreen(text: Text) : Screen(text) {
     }
 
     override fun close() {
-        browser!!.close()
+        browser.close()
         super.close()
     }
 
@@ -61,20 +53,16 @@ class ExampleScreen(text: Text) : Screen(text) {
         super.render(context, i, j, f)
         RenderSystem.disableDepthTest()
         RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX_COLOR)
-        RenderSystem.setShaderTexture(0, browser!!.renderer.textureID)
+        RenderSystem.setShaderTexture(0, browser.renderer.textureID)
         val t = Tessellator.getInstance()
         val buffer: BufferBuilder = t.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_TEXTURE_COLOR)
-        buffer.vertex(BROWSER_DRAW_OFFSET.toFloat(), (height - BROWSER_DRAW_OFFSET).toFloat(), 0F)
-            .texture(0f, 1f)
+        buffer.vertex(BROWSER_DRAW_OFFSET.toFloat(), (height - BROWSER_DRAW_OFFSET).toFloat(), 0F).texture(0f, 1f)
             .color(255, 255, 255, 255)
         buffer.vertex((width - BROWSER_DRAW_OFFSET).toFloat(), (height - BROWSER_DRAW_OFFSET).toFloat(), 0F)
-            .texture(1f, 1f)
+            .texture(1f, 1f).color(255, 255, 255, 255)
+        buffer.vertex((width - BROWSER_DRAW_OFFSET).toFloat(), BROWSER_DRAW_OFFSET.toFloat(), 0F).texture(1f, 0f)
             .color(255, 255, 255, 255)
-        buffer.vertex((width - BROWSER_DRAW_OFFSET).toFloat(), BROWSER_DRAW_OFFSET.toFloat(), 0F)
-            .texture(1f, 0f)
-            .color(255, 255, 255, 255)
-        buffer.vertex(BROWSER_DRAW_OFFSET.toFloat(), BROWSER_DRAW_OFFSET.toFloat(), 0F)
-            .texture(0f, 0f)
+        buffer.vertex(BROWSER_DRAW_OFFSET.toFloat(), BROWSER_DRAW_OFFSET.toFloat(), 0F).texture(0f, 0f)
             .color(255, 255, 255, 255)
         BufferRenderer.drawWithGlobalProgram(buffer.end())
         RenderSystem.setShaderTexture(0, 0)
@@ -82,19 +70,19 @@ class ExampleScreen(text: Text) : Screen(text) {
     }
 
     override fun mouseClicked(mouseX: Double, mouseY: Double, button: Int): Boolean {
-        browser!!.sendMousePress(mouseX(mouseX), mouseY(mouseY), button)
-        browser!!.setFocus(true)
+        browser.sendMousePress(mouseX(mouseX), mouseY(mouseY), button)
+        browser.setFocus(true)
         return super.mouseClicked(mouseX, mouseY, button)
     }
 
     override fun mouseReleased(mouseX: Double, mouseY: Double, button: Int): Boolean {
-        browser!!.sendMouseRelease(mouseX(mouseX), mouseY(mouseY), button)
-        browser!!.setFocus(true)
+        browser.sendMouseRelease(mouseX(mouseX), mouseY(mouseY), button)
+        browser.setFocus(true)
         return super.mouseReleased(mouseX, mouseY, button)
     }
 
     override fun mouseMoved(mouseX: Double, mouseY: Double) {
-        browser!!.sendMouseMove(mouseX(mouseX), mouseY(mouseY))
+        browser.sendMouseMove(mouseX(mouseX), mouseY(mouseY))
         super.mouseMoved(mouseX, mouseY)
     }
 
@@ -103,30 +91,30 @@ class ExampleScreen(text: Text) : Screen(text) {
     }
 
     override fun mouseScrolled(mouseX: Double, mouseY: Double, scrollX: Double, scrollY: Double): Boolean {
-        browser!!.sendMouseWheel(mouseX(mouseX), mouseY(mouseY), scrollY, 0)
+        browser.sendMouseWheel(mouseX(mouseX), mouseY(mouseY), scrollY, 0)
         return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY)
     }
 
     override fun keyPressed(keyCode: Int, scanCode: Int, modifiers: Int): Boolean {
-        browser!!.sendKeyPress(keyCode, scanCode.toLong(), modifiers)
-        browser!!.setFocus(true)
+        browser.sendKeyPress(keyCode, scanCode.toLong(), modifiers)
+        browser.setFocus(true)
         return super.keyPressed(keyCode, scanCode, modifiers)
     }
 
     override fun keyReleased(keyCode: Int, scanCode: Int, modifiers: Int): Boolean {
-        browser!!.sendKeyRelease(keyCode, scanCode.toLong(), modifiers)
-        browser!!.setFocus(true)
+        browser.sendKeyRelease(keyCode, scanCode.toLong(), modifiers)
+        browser.setFocus(true)
         return super.keyReleased(keyCode, scanCode, modifiers)
     }
 
     override fun charTyped(codePoint: Char, modifiers: Int): Boolean {
         if (codePoint == 0.toChar()) return false
-        browser!!.sendKeyTyped(codePoint, modifiers)
-        browser!!.setFocus(true)
+        browser.sendKeyTyped(codePoint, modifiers)
+        browser.setFocus(true)
         return super.charTyped(codePoint, modifiers)
     }
 
     companion object {
-        private const val BROWSER_DRAW_OFFSET = 20
+        private const val BROWSER_DRAW_OFFSET = 0
     }
 }

@@ -23,7 +23,7 @@ object Wellblechhack {
 
     /**
      * Initializes the Wellblechhack. Not using fabric's client entrypoint because it initializes too early.
-     * @see com.kvxd.wellblechhack.mixin.MinecraftClientMixin.init
+     * @see com.kvxd.wellblechhack.mixin.MinecraftClientMixin.onInit
      */
     fun initialize() {
         logger.info("Initializing")
