@@ -5,7 +5,7 @@ import com.kvxd.wellblechhack.events.ModuleEnableEvent
 import com.kvxd.wellblechhack.mc
 import com.kvxd.wellblechhack.module.Category
 import com.kvxd.wellblechhack.module.Module
-import com.kvxd.wellblechhack.render.BrowserUtil
+import com.kvxd.wellblechhack.web.BrowserUtil
 import net.minecraft.client.util.InputUtil
 
 object ClickGuiModule : Module("Click-Gui", "Opens the click-gui", Category.THE_BIN) {

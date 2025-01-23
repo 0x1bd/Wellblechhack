@@ -1,4 +1,4 @@
-package com.kvxd.wellblechhack.render
+package com.kvxd.wellblechhack.web
 
 import com.cinemamod.mcef.MCEF
 

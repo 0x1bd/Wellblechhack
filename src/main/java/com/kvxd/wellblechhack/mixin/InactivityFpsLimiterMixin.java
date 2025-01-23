@@ -1,7 +1,7 @@
 package com.kvxd.wellblechhack.mixin;
 
-import com.kvxd.wellblechhack.render.BrowserUtil;
-import com.kvxd.wellblechhack.render.MCEFScreen;
+import com.kvxd.wellblechhack.web.BrowserUtil;
+import com.kvxd.wellblechhack.web.MCEFScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.InactivityFpsLimiter;
 import org.spongepowered.asm.mixin.Final;
