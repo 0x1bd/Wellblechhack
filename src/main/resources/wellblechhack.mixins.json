@@ -7,8 +7,9 @@
     "ClientConnectionMixin"
   ],
   "client": [
+    "InactivityFpsLimiterMixin",
     "KeyboardMixin",
-    "MinecraftClientMixin",
+    "MinecraftClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1

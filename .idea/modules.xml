@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Wellblechhack.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Wellblechhack.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Wellblechhack.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Wellblechhack.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/web.iml" filepath="$PROJECT_DIR$/web.iml" />
     </modules>
   </component>
 </project>
