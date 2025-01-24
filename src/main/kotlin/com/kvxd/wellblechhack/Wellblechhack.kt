@@ -3,7 +3,6 @@ package com.kvxd.wellblechhack
 import com.kvxd.eventbus.EventBus
 import com.kvxd.wellblechhack.module.ModuleSystem
 import com.kvxd.wellblechhack.web.BrowserCore
-import com.kvxd.wellblechhack.web.api.runApiServer
 import net.ccbluex.liquidbounce.mcef.MCEF
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents
 import net.fabricmc.loader.api.FabricLoader
@@ -42,7 +41,7 @@ object Wellblechhack {
         }
 
         thread(name = "api-server") {
-            runApiServer()
+
         }
 
         ClientLifecycleEvents.CLIENT_STOPPING.register {

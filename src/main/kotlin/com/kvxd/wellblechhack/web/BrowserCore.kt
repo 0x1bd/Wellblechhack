@@ -58,10 +58,9 @@ object BrowserCore {
                 logger.info("Downloading JCEF")
 
                 resourceLoader.downloadJcef()
-
             }.onFailure(Wellblechhack::fatal).onSuccess {
-                    onSuccess()
-                }
+                onSuccess()
+            }
         }
     }
 
