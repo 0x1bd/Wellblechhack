@@ -49,7 +49,7 @@ object BrowserCore {
         val resourceLoader = MCEF.INSTANCE.newResourceManager()
 
         if (!resourceLoader.requiresDownload()) {
-            runCatching(onSuccess).onFailure(Wellblechhack::fatal)
+            onSuccess()
             return
         }
 
@@ -59,8 +59,9 @@ object BrowserCore {
 
                 resourceLoader.downloadJcef()
 
-                onSuccess()
-            }.onFailure(Wellblechhack::fatal)
+            }.onFailure(Wellblechhack::fatal).onSuccess {
+                    onSuccess()
+                }
         }
     }
 
@@ -71,7 +72,6 @@ object BrowserCore {
     }
 
     fun shutdown() {
-        if (isReady)
-            MCEF.INSTANCE.shutdown()
+        if (isReady) MCEF.INSTANCE.shutdown()
     }
 }
