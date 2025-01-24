@@ -54,10 +54,6 @@ dependencies {
     // Libraries
     library("com.github.0x1bd:KeventBus:${property("keventbus_version")}")
 
-    implementation("io.ktor:ktor-server-core:${property("ktor_version")}")
-    implementation("io.ktor:ktor-server-netty:${property("ktor_version")}")
-    implementation("ch.qos.logback:logback-classic:${property("logback_version")}")
-
     modImplementation("com.github.CCBlueX:mcef:${property("mcef_version")}")
     implementation("org.json:json:20250107")
     //modCompileOnly("com.cinemamod:mcef:${property("mcef_version")}")

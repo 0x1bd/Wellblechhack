@@ -10,7 +10,8 @@
     "GameRendererMixin",
     "InactivityFpsLimiterMixin",
     "KeyboardMixin",
-    "MinecraftClientMixin"
+    "MinecraftClientMixin",
+    "MixinWindow"
   ],
   "injectors": {
     "defaultRequire": 1

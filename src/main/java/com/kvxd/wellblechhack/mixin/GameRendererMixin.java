@@ -2,7 +2,7 @@ package com.kvxd.wellblechhack.mixin;
 
 import com.kvxd.wellblechhack.Wellblechhack;
 import com.kvxd.wellblechhack.events.ScreenRenderEvent;
-import com.kvxd.wellblechhack.events.WorldRenderEvent;
+import com.kvxd.wellblechhack.events.GameRenderEvent;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.GameRenderer;
@@ -17,7 +17,7 @@ public class GameRendererMixin {
 
     @Inject(method = "render", at = @At("HEAD"))
     private void onRender(RenderTickCounter tickCounter, boolean tick, CallbackInfo ci) {
-        Wellblechhack.INSTANCE.getEVENT_BUS().post(new WorldRenderEvent());
+        Wellblechhack.INSTANCE.getEVENT_BUS().post(new GameRenderEvent());
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/Screen;renderWithTooltip(Lnet/minecraft/client/gui/DrawContext;IIF)V", shift = At.Shift.AFTER))
