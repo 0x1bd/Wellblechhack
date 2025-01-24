@@ -7,10 +7,12 @@ import com.kvxd.wellblechhack.events.ModuleEnableEvent
 import com.kvxd.wellblechhack.setting.Setting
 import com.kvxd.wellblechhack.settings.BooleanSetting
 import com.kvxd.wellblechhack.settings.KeybindSetting
+import com.kvxd.wellblechhack.util.JsonParsable
 import com.kvxd.wellblechhack.util.Persistable
 import net.minecraft.nbt.NbtCompound
+import org.json.JSONObject
 
-abstract class Module(val name: String, val description: String, val category: Category) : Persistable {
+abstract class Module(val name: String, val description: String, val category: Category) : Persistable, JsonParsable {
 
     private val settings = mutableSetOf<Setting<*>>()
 
@@ -54,6 +56,20 @@ abstract class Module(val name: String, val description: String, val category: C
             moduleTag.put(setting.name, settingTag)
         }
         tag.put(name, moduleTag)
+    }
+
+    override fun parseJson(jsonObject: JSONObject) {
+        jsonObject.put("name", name)
+        jsonObject.put("description", description)
+        jsonObject.put("category", category.name)
+
+        val settingsJson = JSONObject()
+        settings.forEach { setting ->
+            val settingJson = JSONObject()
+            setting.parseJson(settingJson)
+            settingsJson.put(setting.name, settingJson)
+        }
+        jsonObject.put("settings", settingsJson)
     }
 
     protected fun boolean(name: String, description: String, display: String = name, default: Boolean = false) =

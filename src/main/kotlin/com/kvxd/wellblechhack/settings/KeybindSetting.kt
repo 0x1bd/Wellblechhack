@@ -8,6 +8,9 @@ class KeybindSetting(name: String, display: String = name, default: Int, value: 
     value
 ) {
 
+    override val type: String
+        get() = "keybind"
+
     override fun load(tag: NbtCompound) {
         value = tag.getInt("value")
     }

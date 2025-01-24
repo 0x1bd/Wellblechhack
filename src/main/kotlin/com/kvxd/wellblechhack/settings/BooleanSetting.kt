@@ -8,6 +8,9 @@ class BooleanSetting(name: String, display: String = name, default: Boolean, val
     value
 ) {
 
+    override val type: String
+        get() = "boolean"
+
     override fun load(tag: NbtCompound) {
         val byteValue = tag.getByte("value")
 
