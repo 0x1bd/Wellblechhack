@@ -1,7 +1,7 @@
 package com.kvxd.wellblechhack.module
 
 import com.kvxd.wellblechhack.Wellblechhack
-import com.kvxd.wellblechhack.events.KeyPressEvent
+import com.kvxd.wellblechhack.events.KeyEvent
 import com.kvxd.wellblechhack.events.ModuleDisableEvent
 import com.kvxd.wellblechhack.events.ModuleEnableEvent
 import com.kvxd.wellblechhack.setting.Setting
@@ -22,7 +22,7 @@ abstract class Module(val name: String, val description: String, val category: C
     protected val eventBus = Wellblechhack.EVENT_BUS.forward { enabled }
 
     // Don't use eventBus because since filters only for enabled
-    val keybindHandler = Wellblechhack.EVENT_BUS.handler(KeyPressEvent::class, filter = { it.keyCode == keybind }) {
+    val keybindHandler = Wellblechhack.EVENT_BUS.handler(KeyEvent::class, filter = { it.keyCode == keybind }) {
         if (enabled) disable() else enable()
     }
 

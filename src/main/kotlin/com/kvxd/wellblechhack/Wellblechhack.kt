@@ -2,6 +2,7 @@ package com.kvxd.wellblechhack
 
 import com.kvxd.eventbus.EventBus
 import com.kvxd.wellblechhack.module.ModuleSystem
+import com.kvxd.wellblechhack.web.WebViewEnvironment
 import com.kvxd.wellblechhack.web.browser.BrowserManager
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents
 import net.fabricmc.loader.api.FabricLoader
@@ -33,10 +34,10 @@ object Wellblechhack {
 
         ModuleSystem.initialize()
 
-        BrowserManager.initBrowser()
+        WebViewEnvironment.create()
 
         ClientLifecycleEvents.CLIENT_STOPPING.register {
-            BrowserManager.shutdownBrowser()
+            WebViewEnvironment.shutdown()
             ModuleSystem.save()
         }
     }

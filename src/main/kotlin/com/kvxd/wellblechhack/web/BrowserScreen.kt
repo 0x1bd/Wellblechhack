@@ -29,15 +29,15 @@ class BrowserScreen(val url: String, title: Text = Text.literal("")) : Screen(ti
 
     override fun render(context: DrawContext, mouseX: Int, mouseY: Int, delta: Float) {
         val scaleFactor = mc.window.scaleFactor.toFloat()
-        val x = browserTab!!.position.x.toFloat() / scaleFactor
-        val y = browserTab!!.position.y.toFloat() / scaleFactor
-        val w = browserTab!!.position.width.toFloat() / scaleFactor
-        val h = browserTab!!.position.height.toFloat() / scaleFactor
+        val x = browserTab.position.x.toFloat() / scaleFactor
+        val y = browserTab.position.y.toFloat() / scaleFactor
+        val w = browserTab.position.width.toFloat() / scaleFactor
+        val h = browserTab.position.height.toFloat() / scaleFactor
 
         println("Aaaaaa")
 
         BrowserManager.browserDrawer.renderTexture(context, browserTab!!.getTexture(), x, y, w, h)
-        browserTab!!.drawn = true
+        browserTab.drawn = true
 
         // render nothing
     }
@@ -46,7 +46,7 @@ class BrowserScreen(val url: String, title: Text = Text.literal("")) : Screen(ti
 
     override fun close() {
         // Close all tabs
-        browserTab?.closeTab()
+        browserTab.closeTab()
 
         super.close()
     }

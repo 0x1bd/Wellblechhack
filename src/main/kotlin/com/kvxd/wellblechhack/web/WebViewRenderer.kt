@@ -1,13 +1,10 @@
-package com.kvxd.wellblechhack.web.browser
+package com.kvxd.wellblechhack.web
 
 import com.kvxd.wellblechhack.Wellblechhack
 import com.kvxd.wellblechhack.eventBus
 import com.kvxd.wellblechhack.events.FrameBufferResizeEvent
 import com.kvxd.wellblechhack.events.GameRenderEvent
-import com.kvxd.wellblechhack.events.ScreenRenderEvent
 import com.kvxd.wellblechhack.mc
-import com.kvxd.wellblechhack.web.WebViewManager
-import com.kvxd.wellblechhack.web.browser.supports.IBrowser
 import com.mojang.blaze3d.platform.GlStateManager
 import com.mojang.blaze3d.systems.RenderSystem
 import net.minecraft.client.gui.DrawContext
@@ -21,11 +18,7 @@ import net.minecraft.util.TriState
 import net.minecraft.util.Util
 import java.util.function.Function
 
-class BrowserDrawer(val browser: () -> IBrowser?) {
-
-    private val tabs
-        get() = browser()?.getTabs() ?: emptyList()
-
+class WebViewRenderer {
 
     private val browserTextureLayer: Function<Identifier, RenderLayer> = Util.memoize { texture: Identifier ->
         RenderLayer.of(
@@ -52,55 +45,32 @@ class BrowserDrawer(val browser: () -> IBrowser?) {
 
     @Suppress("unused")
     val preRenderHandler = eventBus.handler(GameRenderEvent::class) {
-        browser()?.drawGlobally()
-
-        for (tab in tabs) {
-            tab.drawn = false
-        }
+        WebViewEnvironment.peek()
     }
 
     @Suppress("unused")
-    val onScreenRender = eventBus.handler(ScreenRenderEvent::class) {
-        for (tab in tabs) {
-            if (tab.drawn) {
-                continue
-            }
-
-            val scaleFactor = mc.window.scaleFactor.toFloat()
-            val x = tab.position.x.toFloat() / scaleFactor
-            val y = tab.position.y.toFloat() / scaleFactor
-            val w = tab.position.width.toFloat() / scaleFactor
-            val h = tab.position.height.toFloat() / scaleFactor
-
-            println("Aaaaaa")
-
-            renderTexture(it.context, tab.getTexture(), x, y, w, h)
-            tab.drawn = true
-        }
+    val windowResizeWHandler = eventBus.handler(FrameBufferResizeEvent::class) { e ->
+        WebViewManager.browser!!.resize(e.width, e.height)
     }
 
-    /*
-    private var shouldReload = false
+    private val texture = Identifier.of(Wellblechhack.MOD_ID, "browser/tab/${WebViewManager.browser.hashCode()}")
 
-    @Suppress("unused")
-    val onReload = handler<ResourceReloadEvent> {
-        shouldReload = true
+    init {
+        mc.textureManager.registerTexture(texture, object : AbstractTexture() {
+            override fun getGlId() = WebViewManager.browser!!.renderer.textureID
+        })
     }
-     */
 
     @Suppress("LongParameterList")
     fun renderTexture(
         context: DrawContext,
-        texture: Identifier,
         x: Float,
         y: Float,
         width: Float,
-        height: Float,
+        height: Float
     ) {
-        context.drawTexture(
-            browserTextureLayer, texture, x.toInt(), y.toInt(), 0f, 0f, width.toInt(),
-            height.toInt(), width.toInt(), height.toInt()
-        )
+        context.drawTexture(browserTextureLayer, texture, x.toInt(), y.toInt(), 0f, 0f, width.toInt(),
+            height.toInt(), width.toInt(), height.toInt())
     }
 
 }
