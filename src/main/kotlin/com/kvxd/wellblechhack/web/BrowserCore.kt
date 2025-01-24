@@ -15,7 +15,7 @@ object BrowserCore {
     }
 
     private val dependencyStorage get() = rootStorage.resolve("libraries")
-    private val temporaryCache get() = rootStorage.resolve("libraries")
+    private val temporaryCache get() = rootStorage.resolve("cache")
 
     val isReady: Boolean
         get() = MCEF.INSTANCE.isInitialized
