@@ -2,10 +2,12 @@ package com.kvxd.wellblechhack
 
 import com.kvxd.eventbus.EventBus
 import com.kvxd.wellblechhack.module.ModuleSystem
+import com.kvxd.wellblechhack.web.BrowserCore
+import net.ccbluex.liquidbounce.mcef.MCEF
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents
 import net.fabricmc.loader.api.FabricLoader
-import org.slf4j.LoggerFactory
 import java.io.File
+import kotlin.system.exitProcess
 
 /**
  * Main object for the Wellblechhack
@@ -16,8 +18,6 @@ object Wellblechhack {
     val MOD_ID = "wellblechhack"
 
     val EVENT_BUS = EventBus.create()
-
-    private val logger = LoggerFactory.getLogger(NAME)
 
     val ROOT_FILE = File(FabricLoader.getInstance().gameDir.toFile(), MOD_ID)
 
@@ -33,9 +33,21 @@ object Wellblechhack {
 
         ModuleSystem.initialize()
 
+        BrowserCore.prepareEnvironment {
+            runCatching {
+                MCEF.INSTANCE.initialize()
+            }.onFailure(::fatal)
+        }
+
         ClientLifecycleEvents.CLIENT_STOPPING.register {
+            BrowserCore.shutdown()
             ModuleSystem.save()
         }
+    }
+
+    fun fatal(throwable: Throwable) {
+        logger.error("Fatal error! {}", throwable.message)
+        exitProcess(-1)
     }
 
 }

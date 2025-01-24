@@ -1,8 +1,8 @@
 package com.kvxd.wellblechhack.web
 
-import com.cinemamod.mcef.MCEFBrowser
 import com.kvxd.wellblechhack.mc
 import com.mojang.blaze3d.systems.RenderSystem
+import net.ccbluex.liquidbounce.mcef.MCEFBrowser
 import net.minecraft.client.MinecraftClient
 import net.minecraft.client.gl.ShaderProgramKeys
 import net.minecraft.client.gui.DrawContext
@@ -51,6 +51,7 @@ class MCEFScreen(private val browser: MCEFBrowser) : Screen(Text.literal("MCEF S
 
     override fun render(context: DrawContext, i: Int, j: Int, f: Float) {
         super.render(context, i, j, f)
+        BrowserCore.seek()
         RenderSystem.disableDepthTest()
         RenderSystem.setShader(ShaderProgramKeys.POSITION_TEX_COLOR)
         RenderSystem.setShaderTexture(0, browser.renderer.textureID)
@@ -91,7 +92,7 @@ class MCEFScreen(private val browser: MCEFBrowser) : Screen(Text.literal("MCEF S
     }
 
     override fun mouseScrolled(mouseX: Double, mouseY: Double, scrollX: Double, scrollY: Double): Boolean {
-        browser.sendMouseWheel(mouseX(mouseX), mouseY(mouseY), scrollY, 0)
+        browser.sendMouseWheel(mouseX(mouseX), mouseY(mouseY), scrollY)
         return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY)
     }
 

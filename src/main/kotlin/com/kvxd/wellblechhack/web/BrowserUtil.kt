@@ -1,15 +1,13 @@
 package com.kvxd.wellblechhack.web
 
-import com.cinemamod.mcef.MCEF
+import net.ccbluex.liquidbounce.mcef.MCEF
 
 object BrowserUtil {
 
-    private const val INITIAL_URL = "http://localhost:5173"
-
-    var FRAMERATE_CAP = 144
+    private const val INITIAL_URL = "https://example.org"
 
     fun generate(url: String? = null): MCEFScreen {
-        val browser = MCEF.createBrowser(url ?: INITIAL_URL, true)
+        val browser = MCEF.INSTANCE.createBrowser(url ?: INITIAL_URL, true, 60)
         val screen = MCEFScreen(browser)
         return screen
     }
