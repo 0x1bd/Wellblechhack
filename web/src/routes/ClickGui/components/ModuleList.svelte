@@ -31,10 +31,10 @@
 
 <div class="modules">
     {#if modules.length > 0}
-        {#each modules as module (module.id)}
+        {#each modules as module (module.name)}
             <ModuleCard 
                 {module} 
-                isSelected={selectedModule?.id === module.id}
+                isSelected={selectedModule?.name === module.name}
                 on:select={handleSelect}
             />
         {/each}

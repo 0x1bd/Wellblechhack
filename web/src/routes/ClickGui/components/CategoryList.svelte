@@ -94,7 +94,7 @@
     
     {#each categories as category}
         <button
-            class="category-btn {selectedCategory.id === category.id ? 'active' : ''}"
+            class="category-btn {selectedCategory.name === category.name ? 'active' : ''}"
             on:click={() => {
                 selectedCategory = category;
                 searchQuery = '';

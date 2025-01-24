@@ -7,7 +7,6 @@ export const categories: Category[] = [
         name: "Combat",
         modules: [
             {
-                id: 1,
                 name: "Damage Modifier",
                 description: "Adjust damage multipliers",
                 enabled: false,
@@ -17,7 +16,6 @@ export const categories: Category[] = [
                 ]
             },
             {
-                id: 2,
                 name: "God Mode",
                 description: "Become invincible",
                 enabled: false,
@@ -28,11 +26,9 @@ export const categories: Category[] = [
         ]
     },
     {
-        id: 2,
         name: "Movement",
         modules: [
             {
-                id: 3,
                 name: "Speed Hack",
                 description: "Modify movement speed",
                 enabled: false,

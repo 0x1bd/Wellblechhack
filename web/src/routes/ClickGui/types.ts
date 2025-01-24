@@ -10,7 +10,6 @@ export interface Setting {
 }
 
 export interface Module {
-    id: number;
     name: string;
     description: string;
     enabled: boolean;
@@ -18,7 +17,6 @@ export interface Module {
 }
 
 export interface Category {
-    id: number;
     name: string;
     modules: Module[];
 }
