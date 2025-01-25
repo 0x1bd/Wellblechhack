@@ -2,12 +2,10 @@ package com.kvxd.wellblechhack
 
 import com.kvxd.eventbus.EventBus
 import com.kvxd.wellblechhack.module.ModuleSystem
-import com.kvxd.wellblechhack.web.WebViewEnvironment
-import com.kvxd.wellblechhack.web.browser.BrowserManager
+import com.kvxd.wellblechhack.render.webview.WebViewEnvironment
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents
 import net.fabricmc.loader.api.FabricLoader
 import java.io.File
-import kotlin.concurrent.thread
 import kotlin.system.exitProcess
 
 /**
@@ -32,9 +30,8 @@ object Wellblechhack {
         if (!ROOT_FILE.exists())
             ROOT_FILE.mkdir()
 
+        WebViewEnvironment.setupEnvironment()
         ModuleSystem.initialize()
-
-        WebViewEnvironment.create()
 
         ClientLifecycleEvents.CLIENT_STOPPING.register {
             WebViewEnvironment.shutdown()

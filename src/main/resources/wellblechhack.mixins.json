@@ -9,10 +9,10 @@
   "client": [
     "GameRendererMixin",
     "InactivityFpsLimiterMixin",
+    "InGameHudMixin",
     "KeyboardMixin",
     "MinecraftClientMixin",
-    "MouseMixin",
-    "WindowMixin"
+    "MouseMixin"
   ],
   "injectors": {
     "defaultRequire": 1

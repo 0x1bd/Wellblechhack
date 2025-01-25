@@ -24,8 +24,6 @@
     :global(body) {
         margin: 0;
         padding: 0;
-        background: linear-gradient(135deg, #0a0a12 0%, #1a1a2a 100%);
-        color: #f0f0f5;
         font-family: 'Inter', sans-serif;
     }
 

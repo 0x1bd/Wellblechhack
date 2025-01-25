@@ -1,6 +1,7 @@
 package com.kvxd.wellblechhack.mixin;
 
 import com.kvxd.wellblechhack.Wellblechhack;
+import com.kvxd.wellblechhack.events.CharTypedEvent;
 import com.kvxd.wellblechhack.events.KeyEvent;
 import net.minecraft.client.Keyboard;
 import org.lwjgl.glfw.GLFW;
@@ -15,6 +16,15 @@ public class KeyboardMixin {
     @Inject(method = "onKey", at = @At("HEAD"), cancellable = true)
     private void onKey(long window, int key, int scancode, int action, int modifiers, CallbackInfo ci) {
         KeyEvent p = new KeyEvent(key, action, scancode, modifiers);
+        Wellblechhack.INSTANCE.getEVENT_BUS().post(p);
+
+        if (p.getCancelled())
+            ci.cancel();
+    }
+
+    @Inject(method = "onChar", at = @At("HEAD"), cancellable = true)
+    private void onChar(long window, int codePoint, int modifiers, CallbackInfo ci) {
+        CharTypedEvent p = new CharTypedEvent(codePoint, modifiers);
         Wellblechhack.INSTANCE.getEVENT_BUS().post(p);
 
         if (p.getCancelled())
