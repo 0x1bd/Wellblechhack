@@ -17,19 +17,19 @@
         height: 20px;
         border: 2px solid rgba(149, 76, 233, 0.4);
         border-radius: 5px;
-        transition: all 0.3s ease;
+        transition: all 0.125s ease-out;
         cursor: pointer;
     }
 
     .custom-checkbox::after {
-        content: "✓";
+        content: "❌";
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%) scale(0);
         color: #fff;
         font-size: 14px;
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.125s ease-in-out;
     }
 
     input:checked + .custom-checkbox {

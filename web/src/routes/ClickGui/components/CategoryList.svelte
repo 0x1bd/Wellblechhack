@@ -52,15 +52,15 @@
     }
 
     .search-input {
-        width: 100%;
+        width: 85%;
         padding: 0.75rem 1rem;
         background: rgba(25, 25, 40, 0.8);
         border: 1px solid rgba(149, 76, 233, 0.3);
-        border-radius: 8px;
+        border-radius: 35px;
         color: #fff;
         font-family: inherit;
         font-size: 0.95rem;
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
     }
 
     .search-input:focus {

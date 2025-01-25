@@ -18,6 +18,7 @@ object WebViewEnvironment {
     }
 
     fun removeView(view: WebView): WebView {
+        view.close()
         views.remove(view)
         return view
     }

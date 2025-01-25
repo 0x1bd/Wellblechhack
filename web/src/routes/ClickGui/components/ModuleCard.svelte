@@ -10,25 +10,25 @@
 <style>
     .module-card {
         background: rgba(25, 25, 40, 0.8);
-        border-radius: 12px;
+        border-radius: 15px;
         padding: 1.25rem;
         margin-bottom: 1rem;
         cursor: pointer;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         border: 1px solid transparent;
-        backdrop-filter: blur(4px);
+        backdrop-filter: blur(3px);
     }
 
     .module-card:hover {
         background: rgba(149, 76, 233, 0.15);
-        transform: translateY(-3px);
+        transform: translate(3px, -3px);
         border-color: rgba(149, 76, 233, 0.3);
     }
 
     .module-card.active {
         background: linear-gradient(135deg, rgba(149, 76, 233, 0.25) 0%, transparent 100%);
         border-color: #954CE9;
-        box-shadow: 0 0 20px rgba(149, 76, 233, 0.2);
+        box-shadow: 0 0 15px rgba(149, 76, 233, 0.2);
     }
 
     .module-header {
@@ -47,7 +47,7 @@
     .module-description {
         font-size: 0.9rem;
         color: rgba(255, 255, 255, 0.7);
-        line-height: 1.4;
+        line-height: 1.5;
     }
 </style>
 

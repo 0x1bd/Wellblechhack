@@ -2,8 +2,10 @@ package com.kvxd.wellblechhack.render.webview
 
 import com.kvxd.wellblechhack.Wellblechhack
 import com.kvxd.wellblechhack.eventBus
+import com.kvxd.wellblechhack.events.FramebufferChangeSizeEvent
 import com.kvxd.wellblechhack.events.MouseButtonEvent
 import com.kvxd.wellblechhack.events.MousePositionEvent
+import com.kvxd.wellblechhack.events.WindowChangeSizeEvent
 import com.kvxd.wellblechhack.mc
 import net.ccbluex.liquidbounce.mcef.MCEF
 import net.minecraft.client.texture.AbstractTexture
@@ -100,6 +102,10 @@ class WebView(
 
     private val mousePositionHandler = eventBus.handler(MousePositionEvent::class) {
         mcefBrowser.sendMouseMove(it.x.toInt(), it.y.toInt())
+    }
+
+    private val frameBufferResizeHandler = eventBus.handler(FramebufferChangeSizeEvent::class) {
+        resize(it.width, it.height)
     }
 
 }

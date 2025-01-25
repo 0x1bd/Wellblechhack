@@ -33,7 +33,7 @@
         align-items: center;
         min-height: 100vh;
         padding: 2rem;
-        background: radial-gradient(circle at 50% 50%, rgba(149, 76, 233, 0.1) 0%, transparent 100%);
+        background: radial-gradient(circle at 50% 50%, rgba(149, 76, 233, 0.1) 0%);
     }
 
     .panel {
