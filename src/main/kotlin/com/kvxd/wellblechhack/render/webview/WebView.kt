@@ -5,7 +5,6 @@ import com.kvxd.wellblechhack.eventBus
 import com.kvxd.wellblechhack.events.FramebufferChangeSizeEvent
 import com.kvxd.wellblechhack.events.MouseButtonEvent
 import com.kvxd.wellblechhack.events.MousePositionEvent
-import com.kvxd.wellblechhack.events.WindowChangeSizeEvent
 import com.kvxd.wellblechhack.mc
 import net.ccbluex.liquidbounce.mcef.MCEF
 import net.minecraft.client.texture.AbstractTexture
