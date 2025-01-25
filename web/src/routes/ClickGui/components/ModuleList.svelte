@@ -17,7 +17,7 @@
         flex: 1;
         padding: 1.5rem;
         border-right: 1px solid rgba(149, 76, 233, 0.2);
-        overflow-y: auto;
+        overflow: hidden;
     }
 
     .empty-state {
