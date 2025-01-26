@@ -26,6 +26,7 @@ object WebSocketEventBus {
         polymorphic(Event::class) {
             subclass(SomeEvent::class)
             subclass(AnotherEvent::class)
+            subclass(ClickGuiInfoEvent::class)
         }
     }
 
@@ -52,12 +53,25 @@ object WebSocketEventBus {
 
             scope = CoroutineScope(this.coroutineContext + SupervisorJob())
 
+            addListener<SomeEvent> { _, _ ->
+                sendEvent(ClickGuiInfoEvent(
+                    listOf(Category(
+                        "Somecategory",
+                        listOf(
+                            Module("Mod", "Desc", false, listOf())
+                        )
+                    ))
+                ))
+            }
+
+
+
             routing {
                 webSocket("/ws") {
                     handleSession(this)
                 }
             }
-        }.start(wait = false)
+        }.start(wait = true)
     }
 
     fun sendEvent(event: Event, session: DefaultWebSocketServerSession? = null) {

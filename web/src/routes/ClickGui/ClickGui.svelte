@@ -3,9 +3,11 @@
     import CategoryList from './components/CategoryList.svelte';
     import ModuleList from './components/ModuleList.svelte';
     import SettingsPanel from './components/SettingsPanel.svelte';
-    import type { Category, Module } from './types';
+    import type { Module } from './types';
+    import { bus, ClickGuiInfoEvent, SomeEvent } from '../../lib/eventBus.js';
 
-    let selectedCategory: Category = categories[0];
+    $: selectedCategory = $categories[0];
+
     let selectedModule: Module | null = null;
     let searchQuery: string = '';
 
@@ -17,6 +19,10 @@
             module.description.toLowerCase().includes(query) ||
             module.settings.some(setting => setting.label.toLowerCase().includes(query))
         );
+    });
+
+    bus.addListener<ClickGuiInfoEvent>("ClickGuiInfo", (event) => {
+        categories.set(event.data)
     });
 </script>
 
@@ -53,7 +59,7 @@
 <div class="container">
     <div class="panel">
         <CategoryList 
-            {categories} 
+            categories={$categories} 
             bind:selectedCategory 
             bind:searchQuery 
             {filteredModules}

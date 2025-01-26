@@ -2,15 +2,14 @@
   import Router from 'svelte-spa-router';
   import { routes } from './routes.js';
 
-  import { WebSocketEventBus, SomeEvent, AnotherEvent } from './lib/eventBus.js';
-
-  const ws = new WebSocketEventBus('ws://localhost:8080/ws');
-
+  import { SomeEvent, AnotherEvent, bus, ClickGuiInfoEvent } from './lib/eventBus.js';
+    import { categories } from './routes/ClickGui/data.js';
+  
   function test() {
-    ws.sendEvent(new SomeEvent("Hello from client!"));
+    bus.sendEvent(new SomeEvent("Hello from client!"));
   }
 
-  ws.addListener<AnotherEvent>("AnotherEvent", (event) => {
+  bus.addListener<AnotherEvent>("AnotherEvent", (event) => {
     console.log("Rec: " + event.value);
   });
 </script>

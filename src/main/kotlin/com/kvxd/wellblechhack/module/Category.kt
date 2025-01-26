@@ -1,15 +1,43 @@
 package com.kvxd.wellblechhack.module
 
-enum class Category {
+import com.kvxd.wellblechhack.modules.AutoTotem
+import com.kvxd.wellblechhack.modules.ClickGuiModule
+import com.kvxd.wellblechhack.modules.SuppressModule
+import org.json.JSONArray
+import org.json.JSONObject
 
-    PLAYER,
-    RENDER,
-    WORLD,
-    MOVEMENT,
-    EXPLOIT,
-    THE_BIN;
+enum class Category(
+    private val modules: List<Module>,
+) {
 
-    fun filterModules() =
-        ModuleSystem.modules.filter { it.category == this }
+    PLAYER(listOf(
+        AutoTotem
+    )),
+    RENDER(listOf(
+
+    )),
+    WORLD(listOf(
+
+    )),
+    MOVEMENT(listOf(
+
+    )),
+    EXPLOIT(listOf(
+
+    )),
+    THE_BIN(listOf(
+        ClickGuiModule,
+        SuppressModule
+    ));
+
+    fun toJson(): JSONObject {
+        val json = JSONObject()
+        val modulesJson = JSONArray()
+        modules.forEach { module ->
+            modulesJson.put(module.parseJson(JSONObject()))
+        }
+        json.put("modules", modulesJson)
+        return json
+    }
 
 }

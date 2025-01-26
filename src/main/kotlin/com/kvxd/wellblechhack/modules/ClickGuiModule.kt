@@ -11,7 +11,7 @@ import com.kvxd.wellblechhack.render.webview.WebViewPosition
 import com.kvxd.wellblechhack.render.webview.WebViewScreen
 import net.minecraft.client.util.InputUtil
 
-object ClickGuiModule : Module("Click-Gui", "Opens the click-gui", Category.THE_BIN) {
+object ClickGuiModule : Module("Click-Gui", "Opens the click-gui") {
 
     override val keybind: Int by keybind("keybind", "Toggles the module", default = InputUtil.GLFW_KEY_RIGHT_SHIFT)
 

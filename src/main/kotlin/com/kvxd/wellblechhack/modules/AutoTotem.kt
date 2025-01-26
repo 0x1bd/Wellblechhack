@@ -9,7 +9,7 @@ import net.minecraft.entity.EntityStatuses
 import net.minecraft.item.Items
 import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket
 
-object AutoTotem : Module("Auto-Totem", "Automatically equips a new totem if the current one pops.", Category.PLAYER) {
+object AutoTotem : Module("Auto-Totem", "Automatically equips a new totem if the current one pops.") {
 
     val handler = eventBus.handler(
         PacketReceivedEvent::class,

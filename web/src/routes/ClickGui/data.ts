@@ -1,7 +1,8 @@
 // src/data.ts
+import { writable } from 'svelte/store';
 import type { Category } from './types';
 
-export const categories: Category[] = [
+export const categories = writable<Category[]>([ 
     {
         name: "Combat",
         modules: [
@@ -60,4 +61,4 @@ export const categories: Category[] = [
             },
         ]
     }
-];
+ ]);

@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store';
+import type { Category } from '../routes/ClickGui/types';
 
 export class SomeEvent {
     eventType = "SomeEvent" as const;
@@ -10,7 +11,12 @@ export class AnotherEvent {
     constructor(public value: number) {}
 }
 
-type AppEvent = SomeEvent | AnotherEvent;
+export class ClickGuiInfoEvent {
+    eventType = "ClickGuiInfo" as const;
+    constructor(public data: Category[]) {}
+}
+
+type AppEvent = SomeEvent | AnotherEvent | ClickGuiInfoEvent;
 
 export class WebSocketEventBus {
     private socket: WebSocket | null = null;
@@ -22,32 +28,38 @@ export class WebSocketEventBus {
     }
 
     private connect() {
-        this.socket = new WebSocket(this.url);
+        try {
+            this.socket = new WebSocket(this.url);
 
-        this.socket.onopen = () => {
-            this.isConnected.set(true);
-            console.log("WebSocket connected");
-        };
+            this.socket.onopen = () => {
+                this.isConnected.set(true);
+                console.log("WebSocket connected");
+            };
 
-        this.socket.onmessage = (event) => {
-            try {
-                const message: AppEvent = JSON.parse(event.data);
-                const handlers = this.listeners.get(message.eventType) || [];
-                handlers.forEach((handler) => handler(message));
-            } catch (error) {
-                console.error('Error parsing message:', error);
-            }
-        };
+            this.socket.onmessage = (event) => {
+                try {
+                    const message: AppEvent = JSON.parse(event.data);
+                    const handlers = this.listeners.get(message.eventType) || [];
+                    handlers.forEach((handler) => handler(message));
+                } catch (error) {
+                    console.error('Error parsing message:', error);
+                }
+            };
 
-        this.socket.onclose = () => {
-            this.isConnected.set(false);
-            console.log("WebSocket disconnected. Reconnecting...");
-            setTimeout(() => this.connect(), 1000); // Reconnect after 1 second
-        };
+            this.socket.onclose = (event) => {
+                this.isConnected.set(false);
+                console.warn("WebSocket disconnected. Reconnecting in 1 second...", event.reason);
+                setTimeout(() => this.connect(), 1000);
+            };
 
-        this.socket.onerror = (error) => {
-            console.error('WebSocket error:', error);
-        };
+            this.socket.onerror = (error) => {
+                console.error('WebSocket encountered an error:', error);
+                this.isConnected.set(false);
+            };
+        } catch (error) {
+            console.error("Failed to connect WebSocket:", error);
+            setTimeout(() => this.connect(), 1000); // Retry on failure
+        }
     }
 
     sendEvent<T extends AppEvent>(event: T) {
@@ -64,10 +76,23 @@ export class WebSocketEventBus {
         this.listeners.set(eventType, handlers);
     }
 
+    removeListener<T extends AppEvent>(eventType: T['eventType'], handler: (event: T) => void) {
+        const handlers = this.listeners.get(eventType);
+        if (handlers) {
+            this.listeners.set(
+                eventType,
+                handlers.filter((h) => h !== handler)
+            );
+        }
+    }
+
     disconnect() {
         if (this.socket) {
             this.socket.close();
+            this.isConnected.set(false);
             console.log("WebSocket disconnected");
         }
     }
 }
+
+export const bus = new WebSocketEventBus('ws://localhost:8080/ws');

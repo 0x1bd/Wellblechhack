@@ -12,7 +12,7 @@ import com.kvxd.wellblechhack.util.Persistable
 import net.minecraft.nbt.NbtCompound
 import org.json.JSONObject
 
-abstract class Module(val name: String, val description: String, val category: Category) : Persistable, JsonParsable {
+abstract class Module(val name: String, val description: String) : Persistable, JsonParsable {
 
     private val settings = mutableSetOf<Setting<*>>()
 
@@ -61,7 +61,6 @@ abstract class Module(val name: String, val description: String, val category: C
     override fun parseJson(jsonObject: JSONObject) {
         jsonObject.put("name", name)
         jsonObject.put("description", description)
-        jsonObject.put("category", category.name)
 
         val settingsJson = JSONObject()
         settings.forEach { setting ->

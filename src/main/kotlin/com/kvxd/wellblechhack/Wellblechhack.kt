@@ -13,8 +13,8 @@ import kotlin.system.exitProcess
  */
 object Wellblechhack {
 
-    val NAME = "Wellblechhack"
-    val MOD_ID = "wellblechhack"
+    const val NAME = "Wellblechhack"
+    const val MOD_ID = "wellblechhack"
 
     val EVENT_BUS = EventBus.create()
 

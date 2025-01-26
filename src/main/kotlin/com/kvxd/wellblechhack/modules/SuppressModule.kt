@@ -3,4 +3,4 @@ package com.kvxd.wellblechhack.modules
 import com.kvxd.wellblechhack.module.Category
 import com.kvxd.wellblechhack.module.Module
 
-object SuppressModule : Module("Suppress", "Suppresses certain events", Category.THE_BIN)
+object SuppressModule : Module("Suppress", "Suppresses certain events")
