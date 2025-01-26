@@ -60,7 +60,7 @@ object WebViewRenderer {
         }
     }
 
-    private fun renderTexture(
+    fun renderTexture(
         context: DrawContext,
         texture: Identifier,
         x: Float, y: Float,
@@ -78,6 +78,22 @@ object WebViewRenderer {
             width.toInt(),
             height.toInt()
         )
+    }
+
+    fun renderTexture(
+        context: DrawContext,
+        texture: Identifier,
+        x: Int, y: Int,
+        width: Int, height: Int,
+    ) {
+        renderTexture(context, texture, x.toFloat(), y.toFloat(), width.toFloat(), height.toFloat())
+    }
+
+    fun renderTextureFullscreen(
+        context: DrawContext,
+        texture: Identifier
+    ) {
+        renderTexture(context, texture, 0, 0, mc.window.width, mc.window.height)
     }
 
 }

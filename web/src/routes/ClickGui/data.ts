@@ -3,7 +3,6 @@ import type { Category } from './types';
 
 export const categories: Category[] = [
     {
-        id: 1,
         name: "Combat",
         modules: [
             {
@@ -36,6 +35,29 @@ export const categories: Category[] = [
                     { type: "slider", label: "Speed Multiplier", key: "speedMult", value: 1.0, min: 0.5, max: 5.0, step: 0.1 }
                 ]
             }
+        ]
+    },
+    {
+        name: "Bobbers",
+        modules: [
+            {
+                name: "A",
+                description: "A",
+                enabled: true,
+                settings: []
+            },
+            {
+                name: "B",
+                description: "B",
+                enabled: true,
+                settings: []
+            },
+            {
+                name: "AB",
+                description: "AB",
+                enabled: true,
+                settings: []
+            },
         ]
     }
 ];
